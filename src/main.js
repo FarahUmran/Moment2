@@ -87,3 +87,14 @@ function printCourses(data) {
 }
 
 
+function filterData() {
+    const sook = document.getElementById("search").value.toLowerCase();
+
+    //filtrerar
+    const filterData = courses.filter(sak =>
+        sak.coursename.toLowerCase().includes((sook).toLowerCase()) || 
+        sak.code.toLowerCase().includes(sook)
+    );
+
+    printCourses(filterData);
+}
