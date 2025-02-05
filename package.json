@@ -4,7 +4,7 @@
   "author": "Farah Umran",
   "license": "ISC",
   "source" : "src/index.html",
-  "script": {
+  "scripts": {
     "start" : "parcel",
     "build" : "parcel build"
   },
