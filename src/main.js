@@ -127,6 +127,16 @@ function sorteringsFunktion(event) {
         courses.sort((a, b) => (a.progression > b.progression ? 1 : -1)); // Sortera efter progression
     }
 
-    printCourses(courses); // Uppdatera tabellen med den sorterade datan
+    printCourses(courses); // Uppdaterar tabellen med den sorterade datan
 }
+
+
+
+const table = document.getElementById("tabell");
+table.style.width = "100%";
+table.style.backgroundColor = "#f5f5f5";
+table.style.lineHeight = "1.7em";
+table.style.borderCollapse = "collapse"; // Gör så att linjerna smälter ihop
+table.style.border = "1px solid black"; // Lägg till kantlinjer
+table.style.borderBottom = "1px solid black";
 
