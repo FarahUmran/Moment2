@@ -12,6 +12,8 @@ function init() {
 
     // händelsehanterare för filter
     document.getElementById("search").addEventListener("input", filterData);
+
+
 }
 
 
@@ -24,6 +26,8 @@ async function loadcourse() {
         }
         courses = await response.json();  // konverterar till json
         printCourses(courses);  // denna funktion ska ta data som är lagrad i variabeln  courses, ligger i global scope
+
+
 
     } catch (error) {
         console.error(error);  // denna rad avsedd för utvecklare för att kunna felsöka
@@ -54,6 +58,8 @@ function printCourses(data) {
     let theadTr = document.createElement("tr");
     arr.forEach(headerText => {
         let th = document.createElement("th");
+        th.classList.add("sortering");
+        th.id = "column-" + headerText; // Använder + för att skapa id
         th.textContent = headerText;
         theadTr.appendChild(th)
     });
@@ -84,6 +90,14 @@ function printCourses(data) {
     table.appendChild(tbody);
     tabellEl.appendChild(table);
 
+
+    
+        // Lägger till händelsehanterare för sortering efter att tabellen har skapats
+        const sorteringHeaders = document.querySelectorAll(".sortering");
+        sorteringHeaders.forEach(header => {
+            header.addEventListener("click", sorteringsFunktion);
+        });
+
 }
 
 
@@ -92,9 +106,27 @@ function filterData() {
 
     //filtrerar
     const filterData = courses.filter(sak =>
-        sak.coursename.toLowerCase().includes((sook).toLowerCase()) || 
+        sak.coursename.toLowerCase().includes((sook).toLowerCase()) ||
         sak.code.toLowerCase().includes(sook)
     );
 
+
     printCourses(filterData);
 }
+
+
+
+function sorteringsFunktion(event) {
+    const headerText = event.target.textContent.toLowerCase(); // Identifiera vilken kolumn som klickades på
+
+    if (headerText === "kod") {
+        courses.sort((a, b) => (a.code > b.code ? 1 : -1)); // Sortera efter kurskod
+    } else if (headerText === "namn") {
+        courses.sort((a, b) => (a.coursename > b.coursename ? 1 : -1)); // Sortera efter kursnamn
+    } else if (headerText === "progression") {
+        courses.sort((a, b) => (a.progression > b.progression ? 1 : -1)); // Sortera efter progression
+    }
+
+    printCourses(courses); // Uppdatera tabellen med den sorterade datan
+}
+
